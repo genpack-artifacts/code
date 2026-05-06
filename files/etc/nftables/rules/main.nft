@@ -1,0 +1,10 @@
+table ip nat {
+    chain prerouting {
+        type nat hook prerouting priority dstnat;
+        tcp dport 80 redirect to :9980
+    }
+    chain output {
+        type nat hook output priority -100;
+        tcp dport 80 redirect to :9980
+    }
+}

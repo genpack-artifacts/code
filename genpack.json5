@@ -1,0 +1,18 @@
+{
+    profile: "paravirt",
+    packages: [
+        "media-libs/fontconfig",
+        "app-crypt/mit-krb5",
+        "media-fonts/noto-cjk",
+        "media-fonts/noto-emoji",
+        "net-firewall/nftables",
+    ],
+    buildtime_packages: [
+        "app-arch/dpkg",
+        "dev-util/patchelf",
+    ],
+    users: [
+        { name: "cool", home: "/opt/cool" },
+    ],
+    services: ["coolwsd", "nftables"],
+}
