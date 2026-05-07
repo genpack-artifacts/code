@@ -1,0 +1,11 @@
+[Unit]
+Description=Export coolwsd via vsock port 80
+After=coolwsd.service
+BindsTo=coolwsd.service
+
+[Service]
+ExecStart=socat VSOCK-LISTEN:80,fork,reuseaddr TCP-CONNECT:127.0.0.1:9980
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -49,6 +49,7 @@ install_deb() {
 
 for pkg in \
     collaboraoffice-ure \
+    collaboraoffice \
     collaboraofficebasis-core \
     collaboraofficebasis-images \
     collaboraofficebasis-libreofficekit-data \
@@ -87,6 +88,9 @@ chmod 640 /etc/coolwsd/coolwsd.xml
 # Build systemplate (chroot sandbox for document conversion)
 fc-cache /opt/collaboraoffice/share/fonts/truetype
 coolwsd-systemplate-setup /opt/cool/systemplate /opt/collaboraoffice
+# Gentoo usr-merge: /bin and /sbin are symlinks; replicate this in the systemplate
+ln -sf usr/bin  /opt/cool/systemplate/bin
+ln -sf usr/sbin /opt/cool/systemplate/sbin
 
 # Generate WOPI proof key
 coolconfig generate-proof-key

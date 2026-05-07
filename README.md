@@ -47,4 +47,11 @@ systemctl restart coolwsd
 
 ## ホストからのアクセス
 
-TBD（vsock経由のUNIXドメインソケット公開を検討中）
+`vm run` の `--sock-proxy` でホスト側の UNIX ドメインソケットを VM の vsock ポートに転送できる。
+ソケットのライフサイクルは VM と一致する。
+
+```bash
+vm run --name collabora --sock-proxy 80 code-x86_64.squashfs
+```
+
+ソケットは `$XDG_RUNTIME_DIR/vm/collabora/tcp/80.sock` に作成される。
