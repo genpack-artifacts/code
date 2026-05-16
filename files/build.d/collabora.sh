@@ -80,8 +80,15 @@ done
 rm -f /tmp/Packages
 
 # Directory setup (mirrors postinst)
-mkdir -p /opt/cool/child-roots /opt/cool/cache
-chown cool: /opt/cool /opt/cool/child-roots /opt/cool/cache
+# child-roots is intentionally NOT created here. If it were baked into the squashfs
+# lowerdir, coolwsd's startup cleanup ("remove empty directories") would rmdir it,
+# and overlayfs would then create a whiteout in the virtiofs upper layer to mask the
+# lowerdir entry. The cool user cannot replace that whiteout (virtiofs FUSE uid
+# propagation prevents it). The ExecStartPre drop-in creates child-roots as root
+# before coolwsd starts; because it exists only in the upper layer, cleanup can rmdir
+# it without producing a whiteout, and the kit process can freely recreate it.
+mkdir -p /opt/cool/cache
+chown cool: /opt/cool /opt/cool/cache
 chown cool: /etc/coolwsd/coolwsd.xml
 chmod 640 /etc/coolwsd/coolwsd.xml
 

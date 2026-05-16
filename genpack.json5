@@ -6,6 +6,7 @@
         "media-fonts/noto-cjk",
         "media-fonts/noto-emoji",
         "net-firewall/nftables",
+        "net-vpn/frp",
     ],
     buildtime_packages: [
         "app-arch/dpkg",
@@ -16,3 +17,4 @@
     ],
     services: ["coolwsd", "nftables", "vsock-export-coolwsd"],
 }
+// vm run -m 8192 --sock-proxy=80 -d code.img code-x86_64.squashfs
